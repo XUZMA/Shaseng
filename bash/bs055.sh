@@ -60,3 +60,26 @@ for i in 1 2 3 4 5
 do
   echo "Welcome $i times."
 done
+
+# A simple shell script to print list of cars
+for car in bmw ford toyota nissan
+   do
+   echo "Value of car is: $car"
+done
+
+# A simple shell script to run commands 
+for command in date pwd df 
+   do
+   echo
+   echo "*** The output of $command command >"
+   #run command 
+   $command
+   echo
+done
+
+# A shell script to verify user password database
+files="/etc/passwd /etc/group /etc/shadow /etc/gshdow"
+for f in $files
+do
+	[  -f $f ] && echo "$f file found" || echo "*** Error - $f file missing."
+done

@@ -2,11 +2,26 @@
     require_once 'login.php';
     $conn = new mysqli($hn, $un, $pw, $db);
 
+    // The $_POST Array
+    //
+    // A browser sends user input through either a Get request or Post request. 
+    // The Post request is usually preferred(because it avoids placing unsightly data in the browser¡¯s address bar).
+    // The web server bundles up all of the user input (even if the form was filled out with a hundred fields) 
+    // and puts in into an array named $_POST.
+    //
+    // Depending on whether a form has been set to use the Post or the Get method, 
+    // either the $_POST or the $_GET associative array will be populated with the form data.
+
     if ($conn->connect_error) die($conn->connect_error);
 
+    // Use the isset function to check whether values for all the fields have been posted to the program.
     if (isset($_POST['delete']) && 
         isset($_POST['isbn']))
     {
+
+        // The HTML form appends the ISBN to the DELETE FROM query string created in the variable $query.
+        // which is then passed to the query method of the $conn object to issue it to MySQL.
+
         $isbn = get_post($conn, 'isbn');
         $query = "DELETE FROM classics WHERE isbn='$isbn'";
         $qresult = $conn->query($query);
@@ -34,6 +49,9 @@
             echo "INSERT failed: $query<br>" .
                 $conn->error . "<br><br>";
     }
+
+// The <pre> and </pre> tags are used to force a monospaced font and allow all the inputs to line up neatly.
+// The carriage returns at the end of each line are also output when inside <pre> tags.
 
 echo <<<_END
     <form action="sqltest.php" method="post">
@@ -71,6 +89,8 @@ ISBN        $row[4]
 <input type="submit" value="DELETE RECORD">
 </form>
 _END;
+
+    // The ISBN($row[4]) uniquely identifies each record. 
 
     }
 
